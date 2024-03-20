@@ -3,24 +3,24 @@ import React from 'react';
 import ProfileImg from '../assets/images/dummy_image.png';
 import leftBubbleTriangle from '../assets/icons/leftChatArrow.png';
 
-const LeftBubble = ({chatText}) => {
+const LeftBubble = ({data}) => {
   return (
     <View style={styles.leftChatRowWrapper}>
       <Image source={ProfileImg} style={styles.profileImg} />
       <View style={{marginLeft: 8}}>
-        <Text style={styles.userName}>황세훈</Text>
+        <Text style={styles.userName}>{data.name}</Text>
         <View style={styles.bubbleContainer}>
           <Image
             source={leftBubbleTriangle}
             style={styles.leftBubbleTriangle}
           />
           <View style={styles.leftBubbleWrapper}>
-            <Text style={styles.chat}>{chatText}</Text>
+            <Text style={styles.chat}>{data.content}</Text>
           </View>
         </View>
       </View>
       <View style={styles.chatTimeWrapper}>
-        <Text style={styles.chatTime}>12:03PM</Text>
+        <Text style={styles.chatTime}>{data.created_date}</Text>
       </View>
     </View>
   );

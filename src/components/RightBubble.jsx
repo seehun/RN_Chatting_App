@@ -1,74 +1,37 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  FlatList,
-} from 'react-native';
-import React, {useState} from 'react';
-import leftArrow from '../assets/icons/leftArrow.png';
-import plus from '../assets/icons/plus.png';
+import {StyleSheet, Text, View, Image} from 'react-native';
+import React from 'react';
+import rightBubbleTriangle from '../assets/icons/rightChatArrow.png';
 
-import LeftBubble from '../components/leftBubble';
-import RightBubble from '../components/RightBubble';
-import dummy_data from './dummydata';
-import Toast from '../components/toast';
-
-const ChatScreen = () => {
-  const [toastVisible, setToastVisible] = useState(false);
+const RightBubble = ({data, nextData}) => {
   return (
-    <SafeAreaView style={styles.SafeAreaContainer}>
-      <View style={styles.mainContainer}>
-        <View style={styles.headerWrapper}>
-          <TouchableOpacity>
-            <Image source={leftArrow} style={styles.backButton} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>이민구</Text>
-          <View style={styles.backButton}></View>
-        </View>
+    <View style={styles.rightChatRowWrapper}>
+      <View style={styles.bubbleContainer}>
+        {nextData?.position !== data.position ? (
+          data.isOpen === true ? (
+            <View style={styles.chatInfoWrapper}>
+              <Text style={styles.chatTime}>읽음</Text>
+              <View style={styles.microBar} />
+              <Text style={styles.chatTime}>{data.created_date}</Text>
+            </View>
+          ) : (
+            <View style={styles.chatInfoWrapper}>
+              <Text style={styles.chatTime}>{data.created_date}</Text>
+            </View>
+          )
+        ) : (
+          ''
+        )}
 
-        <View style={styles.chattingScreen}>
-          <FlatList
-            data={dummy_data}
-            renderItem={({item, index}) =>
-              item.position === 'left' ? (
-                <LeftBubble data={item} />
-              ) : (
-                <RightBubble data={item} nextData={dummy_data[index + 1]} />
-              )
-            }
-            keyExtractor={item => item.id}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={() => (
-              <View style={styles.chatDayWrapper}>
-                <Text style={styles.chatDay}>2022년 2월 7일</Text>
-              </View>
-            )}
-          />
+        <View style={styles.rightBubbleWrapper}>
+          <Text style={styles.myChat}>{data.content}</Text>
         </View>
+        <Image source={rightBubbleTriangle} style={styles.leftBubbleTriangle} />
       </View>
-      <View style={styles.inputWrapper}>
-        <TouchableOpacity
-          style={styles.plusBorder}
-          onPress={() => setToastVisible(!toastVisible)}>
-          <Image source={plus} style={styles.plusIcon} />
-        </TouchableOpacity>
-        <TextInput style={styles.input} placeholder={'메세지 입력하기'} />
-      </View>
-      <Toast
-        content={'아직 구현되지 않은 기능입니다.'}
-        visible={toastVisible}
-        handleCancel={() => setToastVisible(false)}
-      />
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default ChatScreen;
-
+export default RightBubble;
 const styles = StyleSheet.create({
   SafeAreaContainer: {
     flex: 1,
