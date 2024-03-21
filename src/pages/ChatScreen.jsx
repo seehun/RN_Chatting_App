@@ -17,16 +17,18 @@ import RightBubble from '../components/RightBubble';
 import dummy_data from '../static/dummydata';
 import Toast from '../components/toast';
 
-const ChatScreen = () => {
+const ChatScreen = ({navigation, route}) => {
+  console.log(route.params.params);
+  const {name} = route.params.params;
   const [toastVisible, setToastVisible] = useState(false);
   return (
     <SafeAreaView style={styles.SafeAreaContainer}>
       <View style={styles.mainContainer}>
         <View style={styles.headerWrapper}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={leftArrow} style={styles.backButton} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>이민구</Text>
+          <Text style={styles.headerTitle}>{name}</Text>
           <View style={styles.backButton}></View>
         </View>
 
