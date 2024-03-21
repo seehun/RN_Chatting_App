@@ -14,7 +14,7 @@ import plus from '../assets/icons/plus.png';
 
 import LeftBubble from '../components/leftBubble';
 import RightBubble from '../components/RightBubble';
-import dummy_data from './dummydata';
+import dummy_data from '../static/dummydata';
 import Toast from '../components/toast';
 
 const ChatScreen = () => {

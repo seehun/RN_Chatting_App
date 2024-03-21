@@ -8,8 +8,8 @@ const Toast = ({content, visible, duration, handleCancel}) => {
     if (visible) toastAnimation();
   }, [toastAnimation, visible]);
 
-  const toastAnimation = useCallback(() => {
-    toastValue.setValue(0);
+  const toastAnimation = () => {
+    // toastValue.setValue(0);
     Animated.spring(toastValue, {
       toValue: 1,
       delay: 100,
@@ -25,7 +25,7 @@ const Toast = ({content, visible, duration, handleCancel}) => {
         }).start();
       }
     });
-  }, [duration]);
+  };
 
   return (
     <Animated.View
