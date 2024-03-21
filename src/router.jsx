@@ -7,6 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './pages/HomeScreen';
 import Detail from './pages/Detail';
 import Calender from './pages/Calender';
+import BasicCarousel from './pages/BasicCarousel';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -17,6 +18,7 @@ const MainTab = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Calender" component={Calender} />
+      <Tab.Screen name="BasicCarousel" component={BasicCarousel} />
     </Tab.Navigator>
   );
 };
