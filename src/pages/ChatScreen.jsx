@@ -7,21 +7,43 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import React, {useState} from 'react';
 import plus from '../assets/icons/plus.png';
 
-import LeftBubble from '../components/leftBubble';
-import RightBubble from '../components/RightBubble';
 import dummy_data from '../static/dummydata';
 import Toast from '../components/toast';
+import Modal from 'react-native-modal';
+
+import record from '../assets/icons/record.png';
+import camera from '../assets/icons/camera.png';
+import album from '../assets/icons/album.png';
 
 import BasicHeader from '../components/BasicHeader';
+import LeftBubble from '../components/leftBubble';
+import RightBubble from '../components/RightBubble';
+
+const {width} = Dimensions.get('window');
 
 const ChatScreen = ({navigation, route}) => {
-  console.log(route.params.params);
+  // console.log(route.params.params);
   const {name} = route.params.params;
   const [toastVisible, setToastVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState();
+
+  const onSelect = data => {
+    console.log(data);
+    setSelectedImage(data);
+  };
+
+  const gotoCameraRoll = () => {
+    setModalVisible(false);
+    // navigation.navigate('CustomCameraRoll', {onSelect: data => onSelect(data)});
+    navigation.navigate('CustomCameraRoll', {onSelect: data => onSelect(data)});
+  };
+
   return (
     <SafeAreaView style={styles.SafeAreaContainer}>
       <View style={styles.mainContainer}>
@@ -45,11 +67,16 @@ const ChatScreen = ({navigation, route}) => {
             )}
           />
         </View>
+        {selectedImage && (
+          <View style={{position: 'absolute', bottom: 8, right: 16}}>
+            <Image source={selectedImage} style={{width: 40, height: 40}} />
+          </View>
+        )}
       </View>
       <View style={styles.inputWrapper}>
         <TouchableOpacity
           style={styles.plusBorder}
-          onPress={() => setToastVisible(!toastVisible)}>
+          onPress={() => setModalVisible(true)}>
           <Image source={plus} style={styles.plusIcon} />
         </TouchableOpacity>
         <TextInput style={styles.input} placeholder={'메세지 입력하기'} />
@@ -57,8 +84,45 @@ const ChatScreen = ({navigation, route}) => {
       <Toast
         content={'아직 구현되지 않은 기능입니다.'}
         visible={toastVisible}
-        handleCancel={() => setToastVisible(false)}
+        handleCancel={() => setToastVisible(!modalVisible)}
       />
+      <Modal
+        isVisible={modalVisible}
+        useNativeDriver
+        animationIn={'slideInUp'}
+        animationOut={'slideOutDown'}
+        animationInTiming={200}
+        animationOutTiming={200}
+        backdropOpacity={0}
+        style={modalStyles.container}>
+        <View style={modalStyles.wrapper}>
+          <View style={styles.inputWrapper}>
+            <TouchableOpacity
+              style={styles.plusBorder}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Image
+                source={plus}
+                style={[styles.plusIcon, modalStyles.icon]}
+              />
+            </TouchableOpacity>
+            <TextInput style={styles.input} placeholder={'메세지 입력하기'} />
+          </View>
+          <View style={{flexDirection: 'row', gap: 40, marginLeft: 40}}>
+            <TouchableOpacity style={modalStyles.btn} onPress={gotoCameraRoll}>
+              <Image source={album} style={modalStyles.btnIcon} />
+              <Text style={modalStyles.btnText}>앨범</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={modalStyles.btn}>
+              <Image source={camera} style={modalStyles.btnIcon} />
+              <Text style={modalStyles.btnText}>카메라</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={modalStyles.btn}>
+              <Image source={record} style={modalStyles.btnIcon} />
+              <Text style={modalStyles.btnText}>음성 녹음</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -207,5 +271,29 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: '#efefef',
     paddingHorizontal: 12,
+  },
+});
+
+const modalStyles = StyleSheet.create({
+  container: {
+    margin: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  wrapper: {width: width, paddingTop: 8, backgroundColor: '#fff', height: 176},
+  icon: {
+    transform: [{rotate: '45deg'}],
+  },
+  btn: {
+    alignItems: 'center',
+    gap: 4,
+  },
+  btnText: {
+    color: '#828282',
+    fontWeight: 400,
+  },
+  btnIcon: {
+    width: 48,
+    height: 48,
   },
 });
