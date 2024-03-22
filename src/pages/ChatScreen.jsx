@@ -24,6 +24,8 @@ import BasicHeader from '../components/BasicHeader';
 import LeftBubble from '../components/leftBubble';
 import RightBubble from '../components/RightBubble';
 
+import ImagePicker from 'react-native-image-crop-picker';
+
 const {width} = Dimensions.get('window');
 
 const ChatScreen = ({navigation, route}) => {
@@ -42,6 +44,25 @@ const ChatScreen = ({navigation, route}) => {
     setModalVisible(false);
     // navigation.navigate('CustomCameraRoll', {onSelect: data => onSelect(data)});
     navigation.navigate('CustomCameraRoll', {onSelect: data => onSelect(data)});
+  };
+
+  const handleCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
+
+    // ImagePicker.openPicker({
+    //   width: 300,
+    //   height: 400,
+    //   cropping: true,
+    //   multiple: true,
+    // }).then(images => {
+    //   console.log(images);
+    // });
   };
 
   return (
@@ -112,7 +133,9 @@ const ChatScreen = ({navigation, route}) => {
               <Image source={album} style={modalStyles.btnIcon} />
               <Text style={modalStyles.btnText}>앨범</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={modalStyles.btn}>
+            <TouchableOpacity
+              style={modalStyles.btn}
+              onPress={() => handleCamera()}>
               <Image source={camera} style={modalStyles.btnIcon} />
               <Text style={modalStyles.btnText}>카메라</Text>
             </TouchableOpacity>
