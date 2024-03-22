@@ -9,13 +9,14 @@ import {
   FlatList,
 } from 'react-native';
 import React, {useState} from 'react';
-import leftArrow from '../assets/icons/leftArrow.png';
 import plus from '../assets/icons/plus.png';
 
 import LeftBubble from '../components/leftBubble';
 import RightBubble from '../components/RightBubble';
 import dummy_data from '../static/dummydata';
 import Toast from '../components/toast';
+
+import BasicHeader from '../components/BasicHeader';
 
 const ChatScreen = ({navigation, route}) => {
   console.log(route.params.params);
@@ -24,14 +25,7 @@ const ChatScreen = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.SafeAreaContainer}>
       <View style={styles.mainContainer}>
-        <View style={styles.headerWrapper}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image source={leftArrow} style={styles.backButton} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>{name}</Text>
-          <View style={styles.backButton}></View>
-        </View>
-
+        <BasicHeader title={name} />
         <View style={styles.chattingScreen}>
           <FlatList
             data={dummy_data}

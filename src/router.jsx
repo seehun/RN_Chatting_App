@@ -8,6 +8,9 @@ import HomeScreen from './pages/HomeScreen';
 import Detail from './pages/Detail';
 import Calender from './pages/Calender';
 import BasicCarousel from './pages/BasicCarousel';
+import Settings from './pages/Settings';
+import Notice from './pages/Notice';
+import NoticeDetail from './pages/NoticeDetail';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,7 +21,7 @@ const MainTab = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Calender" component={Calender} />
-      <Tab.Screen name="BasicCarousel" component={BasicCarousel} />
+      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
 };
@@ -33,6 +36,8 @@ const Router = () => {
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={Detail} />
+      <Stack.Screen name="Notice" component={Notice} />
+      <Stack.Screen name="NoticeDetail" component={NoticeDetail} />
     </Stack.Navigator>
   );
 };
