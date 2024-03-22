@@ -12,6 +12,7 @@ import Settings from './pages/Settings';
 import Notice from './pages/Notice';
 import NoticeDetail from './pages/NoticeDetail';
 import CustomCameraRoll from './components/CustomCameraRoll';
+import VideoPlayer from './pages/VideoPlayer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -21,7 +22,7 @@ const MainTab = () => {
     <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
-      <Tab.Screen name="Calender" component={Calender} />
+      <Tab.Screen name="VideoPlayer" component={VideoPlayer} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
