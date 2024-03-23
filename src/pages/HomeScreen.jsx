@@ -7,7 +7,7 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import searchIcon from '../assets/icons/search.png';
 import addIcon from '../assets/icons/add.png';
 import alertIcon from '../assets/icons/alert.png';
@@ -17,8 +17,17 @@ import rightArrow from '../assets/icons/rightArrow.png';
 import dummy_data from '../static/profile_dummy_data';
 
 import fonts from '../styles/fonts';
+import {getVersion} from '../apis/basic';
+import {getMyInfo} from '../apis/user';
 
 const HomeScreen = ({navigation}) => {
+  const [myInfo, setMyInfo] = useState([]);
+
+  useEffect(() => {
+    getVersion();
+    getMyInfo();
+  }, []);
+
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
