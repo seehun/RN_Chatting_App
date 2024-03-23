@@ -16,6 +16,8 @@ import myProfile from '../assets/images/myProfile.png';
 import rightArrow from '../assets/icons/rightArrow.png';
 import dummy_data from '../static/profile_dummy_data';
 
+import fonts from '../styles/fonts';
+
 const HomeScreen = ({navigation}) => {
   const renderItem = ({item}) => {
     return (
@@ -72,7 +74,13 @@ const HomeScreen = ({navigation}) => {
         </View>
         <View style={styles.myProfileWrapper}>
           <View style={{gap: 2}}>
-            <Text style={{fontSize: 18, color: '#333', fontWeight: 'bold'}}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: '#333',
+                // fontWeight: 'bold',
+                fontFamily: fonts.PRETENDARD[400],
+              }}>
               황세훈
             </Text>
             <Text style={{fontSize: 14, color: '#828282', fontWeight: 500}}>
